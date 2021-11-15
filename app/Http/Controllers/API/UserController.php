@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserLoginRequest;
+use App\Http\Resources\UserResource;
 use App\Services\Contracts\UserServiceInterface;
 
 class UserController extends Controller
@@ -27,11 +28,16 @@ class UserController extends Controller
         $token = $this->user_service->createToken($user->id);
 
         return response()->json([
-            'user' => $user,
+            'user' => new UserResource($user),
             'token' => [
                 'type' => 'Bearer',
                 'access_token' => $token
             ]
         ]);
+    }
+
+    public function show()
+    {
+        return new UserResource(auth()->user());
     }
 }

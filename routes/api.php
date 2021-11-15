@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [API\UserController::class, 'login'])->name('login');
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('user', [API\UserController::class, 'show'])->middleware('auth:sanctum')->name('user');
 
 Route::group(['as' => 'events.', 'prefix' => 'events'], function () {
     Route::get('/', [API\EventController::class, 'index'])->name('index');
