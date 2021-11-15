@@ -25,8 +25,7 @@ class OrderQuantityExceededException extends Exception
     {
         if ($request->expectsJson())
         {
-            return response()->json([
-                'message' => 'Kuantitas yang diorder melebihi dari yang seharusnya'
+            return response()->json(['message' => 'Kuantitas yang diorder melebihi dari yang seharusnya. (Maksimal: ' . $this->max_qty . ')'
             ], 422);
         }
 
